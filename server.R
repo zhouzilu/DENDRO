@@ -8,9 +8,11 @@
 #
 
 library(shiny)
-library(dendextend)
 dend=as.dendrogram(hclust(dist(rbind(c(1,0,0),c(0,1,0),c(0,1,1)),method='binary')))
-labels(dend)=c('a','b','c')
+# labels(dend)=c('a','b','c')
+dend=dendextend::`labels<-`(dend,c('a','b','c'))
+`%>%`=tidyr::`%>%`
+set=dendextend::set
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
   # load('C:/Users/zhouzilu/Desktop/research/single cell/SNV simulation/hpc_res/appSNV_Lratiodist_eval_all.rda')

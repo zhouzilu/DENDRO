@@ -55,8 +55,8 @@ shinyUI(fluidPage(
     mainPanel(
        h4(p("This app is mean to guide researcher on experimental design using Smart-seq2
          or Fluidigm protocal. We assume we have a three-clades tree. The statistic is 
-         calculated by ", strong("SPRUCE. "),  "All the stored simulation result is based on ", 
-         span("Deng, Qiaolin, et al. Science 343.6167 (2014): 193-196. ",style="color:blue"),
+         calculated by ", strong("DENDRO. "),  "All the stored simulation result is based on ", 
+         span("Deng et al. Science 343.6167 (2014): 193-196. ",style="color:blue"),
          'In tumor cases, the estimation may be a little biased. We always recommend ',
          strong('more cell and higher depth if available.'))),
        plotOutput("distPlot",width = "100%"),
