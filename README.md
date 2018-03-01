@@ -10,5 +10,5 @@ install.packages('tidyr')
 If all the library are pre-installed, open your R and use code:
 ```r 
 library(shiny)
-runGitHub("clonal-info-scRNAseq","zhouzilu")
+runGitHub("DENDRO","zhouzilu")
 ```
