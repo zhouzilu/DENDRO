@@ -15,8 +15,8 @@ dend=dendextend::`labels<-`(dend,c('a','b','c'))
 set=dendextend::set
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  # load('C:/Users/zhouzilu/Desktop/research/single cell/SNV simulation/hpc_res/appSNV_Lratiodist_eval_all.rda')
-  load('appSNV_Lratiodist_eval_all.rda')
+  load('C:/Users/zhouzilu/Desktop/research/single cell/SNV simulation/hpc_res/appSNV_Lratiodist_eval_all.rda')
+  # load('appSNV_Lratiodist_eval_all.rda')
   kprob3=c(0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.98)
   lprob3=c(0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.98)
   fprate_v=c(0,0.2,0.4,0.6,0.8)
@@ -52,10 +52,10 @@ shinyServer(function(input, output) {
     det = round(eval_final[k,l,f,n,rd,m,4],2)
     # draw the dendrogram with the specified kprob and lprob
     par(mar=c(7.1,0.1,0.1,1.1),cex=1.5)
-    dend %>% set("branches_k_color", value = c("red", "blue",'green'), k = 3) %>%
+    dend %>% set("branches_k_color", value = c("green", "blue",'red'), k = 3) %>%
       set("leaves_pch", c(17, 18, 19)) %>%  # node point type
       set("leaves_cex", 2) %>%  # node point size
-      set("leaves_col", c("blue", "red", "green")) %>%
+      set("leaves_col", c("green", "blue", "red")) %>%
       plot(main = NULL,yaxt='n',ylim=c(-1,1.1),cex=1.5)
     par(cex=1)
     text(1.1,0.5,lprobj,cex=1.5)
@@ -70,7 +70,7 @@ shinyServer(function(input, output) {
     text(2,-0.45, paste0('Total number of mutations are ',n_v[n]),cex=1.5)
     text(2,-0.60, paste0('Total number of cells are ',m_v[m]),cex=1.5)
     text(2,-0.75, paste0('Detection probability: ',det),cex=1.5)
-    text(2,-0.90, paste0('Sensitivity: ',sen,'    Specificity: ',spe),cex=1.5)
+    text(2,-0.90, paste0('Capture rate: ',sen,'    Purity: ',spe),cex=1.5)
     text(2,-1.05, paste0('Adjusted Rand Index: ',ari),cex=1.5)
   },height=600)
 })
