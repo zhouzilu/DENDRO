@@ -15,8 +15,8 @@ dend=dendextend::`labels<-`(dend,c('a','b','c'))
 set=dendextend::set
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  load('C:/Users/zhouzilu/Desktop/research/single cell/SNV simulation/hpc_res/appSNV_Lratiodist_eval_all.rda')
-  # load('appSNV_Lratiodist_eval_all.rda')
+  # load('C:/Users/zhouzilu/Desktop/research/single cell/SNV simulation/hpc_res/appSNV_Lratiodist_eval_all.rda')
+  load('appSNV_Lratiodist_eval_all.rda')
   kprob3=c(0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.98)
   lprob3=c(0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.98)
   fprate_v=c(0,0.2,0.4,0.6,0.8)
