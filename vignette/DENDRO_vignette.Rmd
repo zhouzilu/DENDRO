@@ -1,0 +1,146 @@
+---
+title: "DENDRO Vignette"
+author: "Zilu Zhou"
+date: "10/23/2018"#"`r Sys.Date()`"
+abstract: >
+ Dna based EvolutioNary tree preDiction by scRna-seq technOlogy (DENDRO) is a statistical framework that takes scRNA-seq data for a tumor and accurately reconstructs its phylogeny, assigning each single cell from the scRNA-seq data to a subclone. Our approach allows us to (1) cluster cells based on genomic profiles while accounting for transcriptional bursting, technical dropout and sequencing error, as benchmarked on in silico mixture and a spike-in analysis, (2) make robust mutation profile inference in subclonal resolution, and (3) perform DNA-RNA joint analysis with same set of cells and examine the relationship between transcriptomic variation and mutation profile. For more detail, please check our [biorixv preprint](www.rstudio.com)
+output: 
+  rmarkdown::html_document:
+    theme: united
+    highlight: tango
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# 1. Installation
+Install all packages in the latest version of [R](https://www.r-project.org/).
+```{r, eval=FALSE}
+devtools::install_github("zhouzilu/DENDRO")
+```
+
+# 2. Questions & issues
+If you have any questions or problems when using DENDRO, please feel free to open a new issue [here](https://github.com/zhouzilu/DENDRO/issues). You can also email the maintainers of the package -- the contact information is below.
+
+* [Zilu Zhou](https://statistics.wharton.upenn.edu/profile/zhouzilu/) (zhouzilu at pennmedicine dot upenn dot edu)
+  <br>
+  Genomics and Computational Biology Graduate Group, UPenn
+
+* [Nancy R. Zhang](https://statistics.wharton.upenn.edu/profile/nzh/) (nzh at wharton dot upenn dot edu)
+  <br>
+  Department of Statistics, UPenn
+
+# 3. DENDRO analysis pipeline
+## 3.1 Overall pipeline 
+
+Figure 1 illustrate the overall pipeline. DENDRO starts from scRNA-seq raw data. We recommend STAR 2-pass method for mapping because it is more robust with splicing junction. SNA detection was applied to mapped BAM files. Both counts of total allele reads and counts of alternative allele reads for each cell c at mutation position g are collected. In the next step, a cell-to-cell genetic divergence matrix is calculated using a genetic divergence evaluation function. DENDRO further clusters the cells and polls cells from same cluster together and re-estimate SNA profiles. Based on the re-estimated SNA profiles, DENDRO generates a parsimony tree which shows the evolution relationship between subclones.
+
+```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
+knitr::include_graphics("figure/Pkg_FIG-01.tif")
+```
+**Figure 1**. A flowchart outlining the procedures for DENDRO. We separate our analysis pipeline into three stages. The subtask is labeled on the right.
+
+## 3.2 Stage I
+### 3.2.1 Initial SNA detection with GATK
+
+Starting with scRNA-seq dataset, we first detect primary mutation with GATK tools. Due to large amount of cells, a map-reduce GVCF approach is necessary. An example script is attached [here]{www.rstudio.com}. After generated the VCF files, DENDRO extract information of (1)number of alternative allele read counts $X$, (2) number of total allele read counts $N$, and (3) mutation profile matrix $Z$, where $Z=1$ indicates mutations  for each cell and loci. $X, N, Z \in R^{M \times C}$. $M$ is total number of mutation loci and $C$ is total number of cells.
+
+Here we load our demo dataset generated using spike-in.
+```{r, message=FALSE, warning=FALSE}
+library(DENDRO)
+data("DENDRO_demo")
+str(demo)
+```
+
+where `Info` indicates mutation information such as chromosome, allele nucleitide and position, and `label` indicates the true label, which we don't have in a real data analysis.
+
+### 3.2.2 Cell and mutation filtering 
+
+Given $X, N$ and $Z$, DENDRO first apply qc
+
+```{r, message=FALSE, warning=FALSE}
+demo_qc = FilterCellMutation(demo$X,demo$N,demo$Z,demo$Info,demo$label)
+```
+
+The above two plots illustrate two distributions: (left) total number of cells for each mutations and (right) total number of mutations for each cell.
+
+```{r, message=FALSE, warning=FALSE}
+str(demo_qc)
+```
+
+
+## 3.3 Stage II
+### 3.3.1 Genetic divergence matrix calculation
+
+Now can calculate the genetic divergence matrix.
+
+```{r, message=FALSE, warning=FALSE, fig.width=14}
+demo_qc$dist = DENDRO.dist(demo_qc$X,demo_qc$N,demo_qc$Z,show.progress=FALSE)
+```
+
+### 3.3.2 Clustering based on genetic divergence matrix
+
+Let's apply hierachical clustering and plot out the clustering result colored by known true label: `demo_qc$clade`
+
+```{r, message=FALSE, warning=FALSE, fig.width=14}
+demo_qc$cluster = DENDRO.cluster(demo_qc$dist,label=demo_qc$label)
+```
+
+Let's decided the optimal number of clusters
+
+```{r, message=FALSE, warning=FALSE}
+demo_qc$sse = DENDRO.sse(demo_qc$dist,demo_qc$cluster)
+demo_qc$optK = 3
+demo_qc$DENDRO_label = cutree(demo_qc$cluster,demo_qc$optK)
+```
+
+We decide this by identify kink or "elbow point". In this example, `optK = 3`. It is crucial that if there are multiple "elbow point", the smallest one is the most robust.
+
+Let's re-plot our data with DENDRO label
+
+```{r, message=FALSE, warning=FALSE, fig.width=14}
+demo_qc$cluster = DENDRO.cluster(demo_qc$dist,label=demo_qc$DENDRO_label)
+```
+
+### 3.3.3 Re-estimate mutation profile within each cluster and QC
+
+```{r, message=FALSE, warning=FALSE}
+demo_cluster = DENDRO.recalculate(demo_qc$X,demo_qc$N, demo_qc$Info, demo_qc$DENDRO_label, cluster.name=c('Cluster3','Cluster2','Cluster1'))
+```
+cluster.name specify the cluster name given the clustering order
+
+## 3.4 Stage III
+### 3.4.1 Evolutionary tree construction
+
+```{r, message=FALSE, warning=FALSE}
+DENDRO.tree(demo_cluster$Z)
+```
+
+In this phylogenetic tree, Cluster1 have greater genetic divergences compared with Cluster2 and Cluster3, which is consistent with our data generation process. 
+
+### 3.4.2 Other analysis
+
+User could further perform joint differential expression analysis and differential mutation analysis between different subclone groups. Mutation profile across clones is at `demo_cluster$Z`.
+
+Differential mutation analysis packages are wide-spread. Two methods that I personally prefer are [Seurat MAST implementation](https://satijalab.org/seurat/get_started.html) and [scDD](https://bioconductor.org/packages/release/bioc/html/scDD.html).
+
+Gene set enrichment analysis is available at [MSigDB, Broad Institute](http://software.broadinstitute.org/gsea/msigdb/).
+
+
+# 4. Session info
+
+```{r sessionInfo}
+sessionInfo()
+```
+
+# 5. References
+
