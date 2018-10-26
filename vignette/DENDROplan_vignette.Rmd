@@ -46,9 +46,9 @@ If you have any questions or problems when using DENDROplan, please feel free to
 
 Figure 2 illustrate the overall pipeline. The analysis starts with a designed tree with an interested clade (purple clade in the example). Based on the tree model, number of cells, sequencing depth and sequencing error rate, we simulate single cell mutation profile. scRNA data was sampled from a reference scRNA-seq dataset given expression level in bulk. A phylogeny computed by DENDRO is further compared with underlining truth, which measured by three statistics - adjust Rand index (global accuracy statistics), capture rate (subclone specific statistic) and purity (subclone specific statistic). 
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
-knitr::include_graphics("figure/Pkg_FIG-02.tif")
+knitr::include_graphics("../figure/Pkg_FIG-02.tif")
 ```
-**Figure 2**. A flowchart outlining the procedures for DENDROplan. 
+  **Figure 2**. A flowchart outlining the procedures for DENDROplan. 
 
 ## 3.2 Load reference
 Our reference dataset is from Deng et al. with great sequencing properties. First, let's load `DENDROplan_ref` and check the structure of the variable `ref`
@@ -67,10 +67,10 @@ The trees that DENDROplan is able to simulate show at Figure 3. The correspondin
 Numbers on branches illustrate index of mutation probability (variable `lprob`) and numbers at node illustrate index of cell proportion (variable `kprob`). The interested clade is labeled by a *star*.
 
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
-knitr::include_graphics("figure/Pkg_FIG-03.tif")
+knitr::include_graphics("../figure/Pkg_FIG-03.tif")
 ```
 
-**Figure 3**. Example tree structure DENDRO can simulate with corresponding parameters.
+  **Figure 3**. Example tree structure DENDRO can simulate with corresponding parameters.
 
 ### 3.3.2 Accuracy measurements
 
@@ -112,10 +112,10 @@ Example tree shows consistency with our input.
 One important reason for user to use this tool is that it can estimate the cluster accuracy given different sequencing depth. In the original Deng et al. paper, they collect around 10,000,000 ~50bp reads per cell in mice, resulting 46 mapped reads for each mutation site, which is super high depth (Figure 4). 
 
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
-knitr::include_graphics("figure/deng_stat-04.tiff")
+knitr::include_graphics("../figure/deng_stat-04.tiff")
 ```
 
-**Figure 4**. scRNA-seq library statistics for Deng et al. Modified from [original paper](http://science.sciencemag.org/content/sci/suppl/2014/01/09/343.6167.193.DC1/Deng-SM.pdf).
+  **Figure 4**. scRNA-seq library statistics for Deng et al. Modified from [original paper](http://science.sciencemag.org/content/sci/suppl/2014/01/09/343.6167.193.DC1/Deng-SM.pdf).
 
 In real life, usually 1,000,000 reads per cell is pretty good depth. Proportionally, there are around 4.5 mapped reads per mutation site. Let's change the parameter `RD` and see how well DENDRO performs.
 
