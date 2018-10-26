@@ -30,7 +30,7 @@ This DENDRO package includes two type of analysis: (1) **DENDRO** analysis on re
 ### DENDRO pipeline
 
 <p align="center">
-  <img src='https://github.com/zhouzilu/DENDRO/tree/master/figure/Pkg_FIG-01.jpg' width='500' height='300'>
+  <img src='https://raw.githubusercontent.com/zhouzilu/DENDRO/tree/master/figure/Pkg_FIG-01.jpg' width='500' height='300'>
   </p>
 
   **Figure 1.** A flowchart outlining the procedures of DENDRO. DENDRO starts from scRNA-seq raw data. We recommend STAR 2-pass method for mapping because it is more robust with splicing junction. SNA detection was applied to mapped BAM files. Both counts of total allele reads and counts of alternative allele reads for each cell c at mutation position g are collected. In the next step, a cell-to-cell genetic divergence matrix is calculated using a genetic divergence evaluation function. DENDRO further clusters the cells and polls cells from same cluster together and re-estimate SNA profiles. Based on the re-estimated SNA profiles, DENDRO generates a parsimony tree which shows the evolution relationship between subclones.
@@ -38,7 +38,7 @@ This DENDRO package includes two type of analysis: (1) **DENDRO** analysis on re
 ### DENDROplan pipeline
 
 <p align="center">
-  <img src='https://github.com/zhouzilu/DENDRO/tree/master/figure/Pkg_FIG-02.jpg' width='500' height='300'>
+  <img src='https://raw.githubusercontent.com/zhouzilu/DENDRO/tree/master/figure/Pkg_FIG-02.jpg' width='500' height='300'>
   </p>
 
   **Figure 2.** The overall DENDROplan pipeline. The analysis starts with a designed tree with an interested clade (purple clade in the example). Based on the tree model, number of cells, sequencing depth and sequencing error rate, we simulate single cell mutation profile. scRNA data was sampled from a reference scRNA-seq dataset given expression level in bulk. A phylogeny computed by DENDRO is further compared with underlining truth, which measured by three statistics - adjust Rand index (global accuracy statistics), capture rate (subclone specific statistic) and purity (subclone specific statistic). 
@@ -46,11 +46,11 @@ This DENDRO package includes two type of analysis: (1) **DENDRO** analysis on re
 
 ## Running DENDRO
 
-  **R notebook** with step-by-step demonstration and rich display is available [***here***](https://rawgit.com/zhouzilu/DENDRO/tree/master/vignette/DENDRO_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDRO_vignette.Rmd).
+  **R notebook** with step-by-step demonstration and rich display is available [***here***](https://raw.githubusercontent.com/zhouzilu/DENDRO/tree/master/vignette/DENDRO_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDRO_vignette.Rmd).
 
 ## Running DENDROplan
 
-  **R notebook** with step-by-step demonstration and rich display is available [***here***](https://rawgit.com/zhouzilu/DENDRO/tree/master/vignette/DENDROplan_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDROplan_vignette.Rmd).
+  **R notebook** with step-by-step demonstration and rich display is available [***here***](https://raw.githubusercontent.com/zhouzilu/DENDRO/tree/master/vignette/DENDROplan_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDROplan_vignette.Rmd).
 
 
 ## Citation
