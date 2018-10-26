@@ -47,7 +47,7 @@ Figure 1 illustrate the overall pipeline. DENDRO starts from scRNA-seq raw data.
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/Pkg_FIG-01.jpg")
 ```
-**Figure 1**. A flowchart outlining the procedures for DENDRO. We separate our analysis pipeline into three stages. The subtask is labeled on the right.
+  **Figure 1**. A flowchart outlining the procedures for DENDRO. We separate our analysis pipeline into three stages. The subtask is labeled on the right.
 
 ## 3.2 Stage I
 ### 3.2.1 Initial SNA detection with GATK
