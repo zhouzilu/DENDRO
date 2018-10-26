@@ -45,7 +45,7 @@ If you have any questions or problems when using DENDRO, please feel free to ope
 Figure 1 illustrate the overall pipeline. DENDRO starts from scRNA-seq raw data. We recommend STAR 2-pass method for mapping because it is more robust with splicing junction. SNA detection was applied to mapped BAM files. Both counts of total allele reads and counts of alternative allele reads for each cell c at mutation position g are collected. In the next step, a cell-to-cell genetic divergence matrix is calculated using a genetic divergence evaluation function. DENDRO further clusters the cells and polls cells from same cluster together and re-estimate SNA profiles. Based on the re-estimated SNA profiles, DENDRO generates a parsimony tree which shows the evolution relationship between subclones.
 
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
-knitr::include_graphics("../figure/Pkg_FIG-01.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/Pkg_FIG-01.jpg")
 ```
 **Figure 1**. A flowchart outlining the procedures for DENDRO. We separate our analysis pipeline into three stages. The subtask is labeled on the right.
 
