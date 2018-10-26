@@ -46,11 +46,11 @@ This DENDRO package includes two type of analysis: (1) **DENDRO** analysis on re
 
 ## Running DENDRO
 
-  **R notebook** with step-by-step demonstration and rich display is available [***here***](https://raw.githubusercontent.com/zhouzilu/DENDRO/tree/master/vignette/DENDRO_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDRO_vignette.Rmd).
+  **R notebook** with step-by-step demonstration and rich display is available [***here***](http://htmlpreview.github.io/zhouzilu/DENDRO/tree/master/vignette/DENDRO_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDRO_vignette.Rmd).
 
 ## Running DENDROplan
 
-  **R notebook** with step-by-step demonstration and rich display is available [***here***](https://raw.githubusercontent.com/zhouzilu/DENDRO/tree/master/vignette/DENDROplan_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDROplan_vignette.Rmd).
+  **R notebook** with step-by-step demonstration and rich display is available [***here***](http://htmlpreview.github.io/zhouzilu/DENDRO/tree/master/vignette/DENDROplan_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDROplan_vignette.Rmd).
 
 
 ## Citation
