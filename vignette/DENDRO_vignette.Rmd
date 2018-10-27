@@ -53,7 +53,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/maste
 ## 3.2 Stage I
 ### 3.2.1 Initial SNA detection with GATK
 
-Starting with scRNA-seq dataset, we first detect primary mutation with GATK tools. Due to large amount of cells, a map-reduce GVCF approach is necessary. An detailed illustration is attached [here]{https://github.com/zhouzilu/DENDRO/blob/master/script/mutation_detection.md}. After generated the VCF files, DENDRO extract information of (1)number of alternative allele read counts $X$, (2) number of total allele read counts $N$, and (3) mutation profile matrix $Z$, where $Z=1$ indicates mutations  for each cell and loci. $X, N, Z \in R^{M \times C}$. $M$ is total number of mutation loci and $C$ is total number of cells.
+Starting with scRNA-seq dataset, we first detect primary mutation with GATK tools. Due to large amount of cells, a map-reduce GVCF approach is necessary. An detailed illustration is attached [here](https://github.com/zhouzilu/DENDRO/blob/master/script/mutation_detection.md). After generated the VCF files, DENDRO extract information of (1)number of alternative allele read counts $X$, (2) number of total allele read counts $N$, and (3) mutation profile matrix $Z$, where $Z=1$ indicates mutations  for each cell and loci. $X, N, Z \in R^{M \times C}$. $M$ is total number of mutation loci and $C$ is total number of cells.
 
 Here we load our demo dataset generated using spike-in.
 ```{r, message=FALSE, warning=FALSE}
