@@ -36,8 +36,12 @@ FilterCellMutation = function(X,N,Z,Info=NULL,label=NULL,cut.off.VAF=0.05,
   N = N[,filted_cell]
   X = X[,filted_cell]
   Z = Z[,filted_cell]
+  
+  if(!is.null(label)){
+  label=label[filted_cell]
+  }
 
-  return(list(N=N,X=X,Z=Z,Info=Info,label=label))
+  return(list(X=X,N=N,Z=Z,Info=Info,label=label))
 }
 
 
@@ -115,10 +119,10 @@ DENDRO.recalculate = function(X,N,Info,DENDRO_label,
 }
 
 
-# Calculate the intra-cluster sum of square error to decide optK
-# Inputs are distnace matrix (d), hierachical cluster result (hc)
+# Calculate the intra-cluster divergence or intra-cluster sum of square error
+# to decide optK Inputs are distnace matrix (d), hierachical cluster result (hc)
 # and sup K (kmax)
-DENDRO.sse = function(d,hc,kmax=10,plot=TRUE){
+DENDRO.icd = function(d,hc,kmax=10,plot=TRUE){
   sse.intra=mapply(function(k){
     c=cutree(hc,k)
     d=as.matrix(d)

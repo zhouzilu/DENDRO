@@ -13,6 +13,7 @@ vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: DENDRO.bibtex
 ---
 
 ```{r setup, include = FALSE}
@@ -44,7 +45,7 @@ If you have any questions or problems when using DENDRO, please feel free to ope
 
 Figure 1 illustrate the overall pipeline. DENDRO starts from scRNA-seq raw data. We recommend STAR 2-pass method for mapping because it is more robust with splicing junction. SNA detection was applied to mapped BAM files. Both counts of total allele reads and counts of alternative allele reads for each cell c at mutation position g are collected. In the next step, a cell-to-cell genetic divergence matrix is calculated using a genetic divergence evaluation function. DENDRO further clusters the cells and polls cells from same cluster together and re-estimate SNA profiles. Based on the re-estimated SNA profiles, DENDRO generates a parsimony tree which shows the evolution relationship between subclones.
 
-```{r, out.width = "800px", fig.align = "center", echo=FALSE}
+```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/Pkg_FIG-01.jpg")
 ```
   **Figure 1**. A flowchart outlining the procedures for DENDRO. We separate our analysis pipeline into three stages. The subtask is labeled on the right.
@@ -98,7 +99,7 @@ demo_qc$cluster = DENDRO.cluster(demo_qc$dist,label=demo_qc$label)
 Let's decided the optimal number of clusters
 
 ```{r, message=FALSE, warning=FALSE}
-demo_qc$sse = DENDRO.sse(demo_qc$dist,demo_qc$cluster)
+demo_qc$icd = DENDRO.icd(demo_qc$dist,demo_qc$cluster)
 demo_qc$optK = 3
 demo_qc$DENDRO_label = cutree(demo_qc$cluster,demo_qc$optK)
 ```
@@ -131,9 +132,9 @@ In this phylogenetic tree, Cluster1 have greater genetic divergences compared wi
 
 User could further perform joint differential expression analysis and differential mutation analysis between different subclone groups. Mutation profile across clones is at `demo_cluster$Z`.
 
-Differential mutation analysis packages are wide-spread. Two methods that I personally prefer are [Seurat MAST implementation](https://satijalab.org/seurat/get_started.html) and [scDD](https://bioconductor.org/packages/release/bioc/html/scDD.html).
+Differential mutation analysis packages are wide-spread. Two methods that I personally prefer are [Seurat MAST implementation](https://satijalab.org/seurat/get_started.html) [@seurat2018] and [scDD](https://bioconductor.org/packages/release/bioc/html/scDD.html) [@scDD2016].
 
-Gene set enrichment analysis is available at [MSigDB, Broad Institute](http://software.broadinstitute.org/gsea/msigdb/).
+Gene set enrichment analysis is available at [MSigDB, Broad Institute](http://software.broadinstitute.org/gsea/msigdb/) [@gsea2005].
 
 
 # 4. Session info

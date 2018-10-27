@@ -13,6 +13,7 @@ vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: DENDRO.bibtex
 ---
 
 ```{r setup, include = FALSE}
@@ -115,7 +116,7 @@ One important reason for user to use this tool is that it can estimate the clust
 knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/deng_stat-04.jpg")
 ```
 
-  **Figure 4**. scRNA-seq library statistics for Deng et al. Modified from [original paper](http://science.sciencemag.org/content/sci/suppl/2014/01/09/343.6167.193.DC1/Deng-SM.pdf).
+  **Figure 4**. scRNA-seq library statistics for Deng et al. [@Deng2014]. Modified from [original paper](http://science.sciencemag.org/content/sci/suppl/2014/01/09/343.6167.193.DC1/Deng-SM.pdf).
 
 In real life, usually 1,000,000 reads per cell is pretty good depth. Proportionally, there are around 4.5 mapped reads per mutation site. Let's change the parameter `RD` and see how well DENDRO performs.
 
