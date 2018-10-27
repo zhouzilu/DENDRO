@@ -3,7 +3,7 @@ title: "DENDRO Vignette"
 author: "Zilu Zhou"
 date: "10/23/2018"#"`r Sys.Date()`"
 abstract: >
- Dna based EvolutioNary tree preDiction by scRna-seq technOlogy (DENDRO) is a statistical framework that takes scRNA-seq data for a tumor and accurately reconstructs its phylogeny, assigning each single cell from the scRNA-seq data to a subclone. Our approach allows us to (1) cluster cells based on genomic profiles while accounting for transcriptional bursting, technical dropout and sequencing error, as benchmarked on in silico mixture and a spike-in analysis, (2) make robust mutation profile inference in subclonal resolution, and (3) perform DNA-RNA joint analysis with same set of cells and examine the relationship between transcriptomic variation and mutation profile. For more detail, please check our [biorixv preprint, no link](www.rstudio.com)
+ Dna based EvolutioNary tree preDiction by scRna-seq technOlogy (DENDRO) is a statistical framework that takes scRNA-seq data for a tumor and accurately reconstructs its phylogeny, assigning each single cell from the scRNA-seq data to a subclone. Our approach allows us to (1) cluster cells based on genomic profiles while accounting for transcriptional bursting, technical dropout and sequencing error, as benchmarked on in silico mixture and a spike-in analysis, (2) make robust mutation profile inference in subclonal resolution, and (3) perform DNA-RNA joint analysis with same set of cells and examine the relationship between transcriptomic variation and mutation profile. For more detail, please check our [biorixv preprint, no link yet](www.rstudio.com)
 output: 
   rmarkdown::html_document:
     theme: united
@@ -43,7 +43,7 @@ If you have any questions or problems when using DENDRO, please feel free to ope
 # 3. DENDRO analysis pipeline
 ## 3.1 Overall pipeline 
 
-Figure 1 illustrate the overall pipeline. DENDRO starts from scRNA-seq raw data. We recommend STAR 2-pass method for mapping because it is more robust with splicing junction. SNA detection was applied to mapped BAM files. Both counts of total allele reads and counts of alternative allele reads for each cell c at mutation position g are collected. In the next step, a cell-to-cell genetic divergence matrix is calculated using a genetic divergence evaluation function. DENDRO further clusters the cells and polls cells from same cluster together and re-estimate SNA profiles. Based on the re-estimated SNA profiles, DENDRO generates a parsimony tree which shows the evolution relationship between subclones.
+Figure 1 illustrate the overall pipeline. DENDRO starts from scRNA-seq raw data. We recommend STAR 2-pass method for mapping because it is more robust with splicing junction. SNA detection was applied to mapped BAM files. Both counts of total allele reads and counts of alternative allele reads for each cell $c$ at mutation position $g$ are collected. In the next step, a cell-to-cell genetic divergence matrix is calculated using a genetic divergence evaluation function. DENDRO further clusters the cells and polls cells from same cluster together and re-estimate SNA profiles. Based on the re-estimated SNA profiles, DENDRO generates a parsimony tree which shows the evolution relationship between subclones.
 
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/Pkg_FIG-01.jpg")
@@ -53,7 +53,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/maste
 ## 3.2 Stage I
 ### 3.2.1 Initial SNA detection with GATK
 
-Starting with scRNA-seq dataset, we first detect primary mutation with GATK tools. Due to large amount of cells, a map-reduce GVCF approach is necessary. An example script is attached [here]{www.rstudio.com}. After generated the VCF files, DENDRO extract information of (1)number of alternative allele read counts $X$, (2) number of total allele read counts $N$, and (3) mutation profile matrix $Z$, where $Z=1$ indicates mutations  for each cell and loci. $X, N, Z \in R^{M \times C}$. $M$ is total number of mutation loci and $C$ is total number of cells.
+Starting with scRNA-seq dataset, we first detect primary mutation with GATK tools. Due to large amount of cells, a map-reduce GVCF approach is necessary. An detailed illustration is attached [here]{https://github.com/zhouzilu/DENDRO/blob/master/script/mutation_detection.md}. After generated the VCF files, DENDRO extract information of (1)number of alternative allele read counts $X$, (2) number of total allele read counts $N$, and (3) mutation profile matrix $Z$, where $Z=1$ indicates mutations  for each cell and loci. $X, N, Z \in R^{M \times C}$. $M$ is total number of mutation loci and $C$ is total number of cells.
 
 Here we load our demo dataset generated using spike-in.
 ```{r, message=FALSE, warning=FALSE}
