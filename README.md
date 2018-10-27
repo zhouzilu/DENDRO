@@ -1,13 +1,13 @@
 # DENDRO & DENDROplan
 
-Single cell RNA-sequencing (scRNA-seq) technologies have made it possible to study tumor transcriptomes at single-cell resolution, allowing better cell type classification and unprecedented study of intratumor transcriptomic heterogeneity.  Yet, the underlining mechanisms for tumor initiation, progression, metastasis and relapse are often driven by genetic heterogeneity, that is, subclonal evolution involving genetically distinct subpopulations of cells.  Detection of these genetically distinct subclones and understanding the evolutionary dynamics of the tumor is essential for accurate prognosis and effective treatment.  A tumor’s genetic heterogeneity underlies its transcriptome heterogeneity, and thus, intra-tumor transcriptomic variation needs to be quantified within the context of intra-tumor clonal variation. There is yet no method that can derive the genetic mutation profile and gene expression level for the same cell with acceptable accuracy, high throughput, and low cost. Here we describe a statistical method, **DENDRO** (**D**na based **E**volutio**N**ary tree pre**D**iction by sc**R**na-seq techn**O**logy), which takes scRNA-seq data for a tumor and accurately reconstructs its phylogeny, assigning each single cell from the scRNA-seq data to a subclone (Figure 1).
+ **DENDRO**, stand for **D**na based **E**volutio**N**ary tree pre**D**iction by sc**R**na-seq techn**O**logy is an R package, which takes scRNA-seq data for a tumor and accurately reconstructs its phylogeny, assigning each single cell from the scRNA-seq data to a subclone (Figure 1). Currently there is no statistical framework specifically designed in scRNA-seq dataset that capture both biological and technical dropout. DENDRO utilizes a Beta-Binomial framework perfectly tackled this problem.
 
-Before conducting a single cell RNA-seq experiment on a tumor sample, it is important to project how subclone detection power depends on the number of cells sequenced and the coverage per cell. To facilitate experiment design, we developed a tool, **DENDROplan** (Figure 2), that  predicts the expected clustering accuracy by DENDRO given sequencing parameters.  Given a tree structure and a target accuracy, **DENDROplan** computes the necessary read depth and number of cells needed based on the spike-in procedure described above. 
+In addition, before conducting a single cell RNA-seq experiment on a tumor sample, it is important to project how subclone detection power depends on the number of cells sequenced and the coverage per cell. To facilitate experiment design, we developed a tool, **DENDROplan** (Figure 2), that  predicts the expected clustering accuracy by DENDRO given sequencing parameters. As a result, researchers can design experiment parameters, such as sequencing depth and number of cells, based on DENDROplan's prediction.
 
 
 ## Manuscript
 
-XXX ([link](https://doi.org/10.1093/bioinformatics/bty057))
+([no link yet](https://doi.org/10.1093/bioinformatics/bty057))
 
 
 ## Questions & Problems
