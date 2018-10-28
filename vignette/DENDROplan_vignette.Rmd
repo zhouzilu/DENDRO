@@ -29,7 +29,7 @@ Install all packages in the latest version of [R](https://www.r-project.org/).
 devtools::install_github("zhouzilu/DENDRO")
 ```
 
-In addition to *DENDRO* package, we also needed to download the reference RNA-seq dataset.
+The reference dataset from Deng et al. [@Deng2014] is pre-stored in the DENDRO package.
 
 # 2. Questions & issues
 If you have any questions or problems when using DENDROplan, please feel free to open a new issue [here](https://github.com/zhouzilu/DENDRO/issues). You can also email the maintainers of the package -- the contact information is below.
@@ -52,7 +52,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/maste
   **Figure 2**. A flowchart outlining the procedures for DENDROplan. 
 
 ## 3.2 Load reference
-Our reference dataset is from Deng et al. with great sequencing properties. First, let's load `DENDROplan_ref` and check the structure of the variable `ref`
+Our reference dataset is from Deng et al. [@Deng2014] with great sequencing quality and depth. First, let's load `DENDROplan_ref` and check the structure of the reference variable `ref`
 
 ```{r, message=FALSE, warning=FALSE}
 library(DENDRO)
@@ -60,12 +60,12 @@ data("DENDROplan_ref")
 str(ref)
 ```
 
+There are total 22958 potential mutation loci across 133 cells. As a result, when we simulate trees, the maximum number of cells is 133 and the maximum number of mutations is 22958.
+
 ## 3.3  Tree simulation
 ### 3.3.1 Tree type and parameters
 
-The trees that DENDROplan is able to simulate show at Figure 3. The corresponding k and subtype value are also included. 
-
-Numbers on branches illustrate index of mutation probability (variable `lprob`) and numbers at node illustrate index of cell proportion (variable `kprob`). The interested clade is labeled by a *star*.
+The trees that DENDROplan is able to simulate show at Figure 3. The corresponding `k` and subtype value are also included. 
 
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/Pkg_FIG-03.jpg")
@@ -73,15 +73,17 @@ knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/maste
 
   **Figure 3**. Example tree structure DENDRO can simulate with corresponding parameters.
 
+Numbers on branches illustrate index of mutation probability variable `lprob`, and numbers at node illustrate index of cell proportion variable `kprob`. The interested clade is labeled by a *star*. Capture rate and purity are measured on that specific *star* cluster.
+
 ### 3.3.2 Accuracy measurements
 
 We measure DENDROplan results by four statistics, explained here:
 
 * Adjust Rand index: Adjusted Rand index is a measure of the similarity between two data clusterings after adjusted for the chance grouping of elements. For details, see [here](https://en.wikipedia.org/wiki/Rand_index)
 
-* Capture rate: Capture rate is a measure of “false negative rate” of a specific clade. Out of all the cells from the specific clade, how many of them is detected by the algorithm.
+* Capture rate: Capture rate is a measure of “false negative rate” of a specific *star* clade. Out of all the cells from the specific clade, how many of them is detected by the algorithm.
 
-* Purity: Purity is a measure of “false positive rate” of a specific clade. Out of all the cells in the “specific cluster” you detected, how many are actually from the true specific clade.
+* Purity: Purity is a measure of “false positive rate” of a specific *star* clade. Out of all the cells in the “specific cluster” you detected, how many are actually from the true specific clade.
 
 * Observation probability: This is only one single value, which measures the probability of observe all clades in our multipe simulation round.
 
@@ -99,10 +101,10 @@ Result shows the example tree structure as well as statistics with 95% Confidenc
 
 ### 3.4.2 Example II
 
-In the 2nd example, we want to specify the similar tree but with customized cell proportion. We want the four clusters have cell proportion 0.2, 0.2, 0.2 and 0.4, i.e. we want one major subclone. In our code we need to specify this by parameter `kprob`.
+In the 2nd example, we want to specify the similar tree but with customized cell proportion and mutation loads. We want the four clusters have cell proportion 0.2, 0.2, 0.2 and 0.4, i.e. we want one major subclone. In our code we need to specify this by parameter `kprob`. Also, we want our mutation load unequally distributed with branch 4 (cluster 4 specific) having more mutations `lprob=c(0.15,0.15,0.15,0.25,0.15,0.15)`.
 
 ```{r, message=FALSE, warning=FALSE, fig.width=8}
-res=DENDRO.simulation(kprob=c(0.2,0.2,0.2,0.4),n=100,ref=ref,k=4,subtype=1)
+res=DENDRO.simulation(kprob=c(0.2,0.2,0.2,0.4),lprob=c(0.15,0.15,0.15,0.25,0.15,0.15),n=100,ref=ref,k=4,subtype=1)
 res
 ```
 
@@ -110,7 +112,7 @@ Example tree shows consistency with our input.
 
 ### 3.4.3 Example III
 
-One important reason for user to use this tool is that it can estimate the cluster accuracy given different sequencing depth. In the original Deng et al. paper, they collect around 10,000,000 ~50bp reads per cell in mice, resulting 46 mapped reads for each mutation site, which is super high depth (Figure 4). 
+One important reason for user to use this tool is that it can estimate the cluster accuracy given different sequencing depth. In the original Deng et al. paper [@Deng2014], they collect around 10,000,000 50bp-reads per cell in mice, resulting 46 mapped reads for each mutation site, which is super high depth (Figure 4). 
 
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/deng_stat-04.jpg")
@@ -118,14 +120,14 @@ knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/maste
 
   **Figure 4**. scRNA-seq library statistics for Deng et al. [@Deng2014]. Modified from [original paper](http://science.sciencemag.org/content/sci/suppl/2014/01/09/343.6167.193.DC1/Deng-SM.pdf).
 
-In real life, usually 1,000,000 reads per cell is pretty good depth. Proportionally, there are around 4.5 mapped reads per mutation site. Let's change the parameter `RD` and see how well DENDRO performs.
+In real life, usually 1,000,000 reads per cell is pretty good depth. Proportionally, there are around 4.5 mapped reads per mutation site. Let's change the read depth parameter `RD` and see how well DENDRO performs.
 
 ```{r}
 res=DENDRO.simulation(RD=4.5,n=100,ref=ref,k=4,subtype=1)
 res
 ```
 
-Feel free to play with different parameters. The detailed function document can be found by typing `??DENDRO.simulation` in R
+Feel free to play with different parameters. The detailed function document can be found by typing `??DENDRO.simulation` in R.
 
 # 4. Session info
 

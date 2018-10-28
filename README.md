@@ -1,6 +1,6 @@
 # DENDRO & DENDROplan
 
- **DENDRO**, stand for **D**na based **E**volutio**N**ary tree pre**D**iction by sc**R**na-seq techn**O**logy is an R package, which takes scRNA-seq data for a tumor and accurately reconstructs its phylogeny, assigning each single cell from the scRNA-seq data to a subclone (Figure 1). Currently there is no statistical framework specifically designed in scRNA-seq dataset that capture both biological and technical dropout. DENDRO utilizes a Beta-Binomial framework perfectly tackled this problem.
+ **DENDRO**, stands for **D**na based **E**volutio**N**ary tree pre**D**iction by sc**R**na-seq techn**O**logy, is an **R** package, which takes scRNA-seq data for a tumor (or related somatic tissues) and accurately reconstructs its phylogeny, assigning each single cell from the single cell RNA sequencing (scRNA-seq) data to a subclone (Figure 1). Currently there is no phylogenetic reconstruction framework specifically designs for scRNA-seq dataset due to biological dropout (i.e. burstness), sequencing error, and technical dropout. DENDRO perfectly tackles this problem with a Bayesian framework (Beta-Binomial), and achieves high clustering accuracy .
 
 In addition, before conducting a single cell RNA-seq experiment on a tumor sample, it is important to project how subclone detection power depends on the number of cells sequenced and the coverage per cell. To facilitate experiment design, we developed a tool, **DENDROplan** (Figure 2), that  predicts the expected clustering accuracy by DENDRO given sequencing parameters. As a result, researchers can design experiment parameters, such as sequencing depth and number of cells, based on DENDROplan's prediction.
 
@@ -25,7 +25,7 @@ devtools::install_github("zhouzilu/DENDRO")
 
 ## Pipeline overview
 
-This DENDRO package includes two type of analysis: (1) **DENDRO** analysis on real dataset such as tumor and hematopoesis, and (2) **DENDROplan** which analyze the accuracy of DENDRO cluster given inferred clonal tree structure, cell number and sequencing depth. Overall pipelines are shown below.
+This DENDRO package includes two analysis tools: (1) **DENDRO**, a phylogenetic tree construction with real dataset such as tumor and hematopoesis scRNA-seq, and (2) **DENDROplan**, which help design experiment by predicting the accuracy of DENDRO cluster given inferred clonal tree structure, cell number and sequencing depth. Overall pipelines are shown below.
 
 ### DENDRO pipeline
 
@@ -33,7 +33,12 @@ This DENDRO package includes two type of analysis: (1) **DENDRO** analysis on re
   <img src='https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/Pkg_FIG-01.jpg' width='1000' height='600'>
   </p>
 
-  **Figure 1.** A flowchart outlining the procedures of DENDRO. DENDRO starts from scRNA-seq raw data. We recommend STAR 2-pass method for mapping because it is more robust with splicing junction. SNA detection was applied to mapped BAM files. Both counts of total allele reads and counts of alternative allele reads for each cell c at mutation position g are collected. In the next step, a cell-to-cell genetic divergence matrix is calculated using a genetic divergence evaluation function. DENDRO further clusters the cells and polls cells from same cluster together and re-estimate SNA profiles. Based on the re-estimated SNA profiles, DENDRO generates a parsimony tree which shows the evolution relationship between subclones.
+  **Figure 1.** A flowchart outlining the procedures of DENDRO. DENDRO starts from scRNA-seq raw data. We recommend STAR 2-pass method for mapping because it is more robust with splicing junction. SNA detection was applied to mapped BAM files. Both counts of total allele reads and counts of alternative allele reads for each cell $c$ at mutation position $g$ are collected. In the next step, a cell-to-cell genetic divergence matrix is calculated using a genetic divergence evaluation function. DENDRO further clusters the cells and pools cells from same cluster together and re-estimate SNA profiles. Based on the re-estimated SNA profiles, DENDRO generates a parsimony tree which shows the evolution relationship between subclones.
+
+### Running DENDRO
+
+  **DENDRO R notebook** with step-by-step demonstration and rich display is available [***here***](http://rawgit.com/zhouzilu/DENDRO/master/vignette/DENDRO_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDRO_vignette.Rmd).
+
 
 ### DENDROplan pipeline
 
@@ -43,14 +48,9 @@ This DENDRO package includes two type of analysis: (1) **DENDRO** analysis on re
 
   **Figure 2.** The overall DENDROplan pipeline. The analysis starts with a designed tree with an interested clade (purple clade in the example). Based on the tree model, number of cells, sequencing depth and sequencing error rate, we simulate single cell mutation profile. scRNA data was sampled from a reference scRNA-seq dataset given expression level in bulk. A phylogeny computed by DENDRO is further compared with underlining truth, which measured by three statistics - adjust Rand index (global accuracy statistics), capture rate (subclone specific statistic) and purity (subclone specific statistic). 
 
+### Running DENDROplan
 
-## Running DENDRO
-
-  **R notebook** with step-by-step demonstration and rich display is available [***here***](http://rawgit.com/zhouzilu/DENDRO/master/vignette/DENDRO_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDRO_vignette.Rmd).
-
-## Running DENDROplan
-
-  **R notebook** with step-by-step demonstration and rich display is available [***here***](http://rawgit.com/zhouzilu/DENDRO/master/vignette/DENDROplan_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDROplan_vignette.Rmd).
+  **DENDROplan R notebook** with step-by-step demonstration and rich display is available [***here***](http://rawgit.com/zhouzilu/DENDRO/master/vignette/DENDROplan_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDROplan_vignette.Rmd).
 
 
 ## Citation
