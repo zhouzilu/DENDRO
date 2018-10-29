@@ -45,7 +45,7 @@ If you have any questions or problems when using DENDROplan, please feel free to
 # 3. DENDROplan pipeline
 ## 3.1 Overall pipeline
 
-Figure 2 illustrate the overall pipeline. The analysis starts with a designed tree with an interested clade (purple clade in the example). Based on the tree model, number of cells, sequencing depth and sequencing error rate, we simulate single cell mutation profile. scRNA data was sampled from a reference scRNA-seq dataset given expression level in bulk. A phylogeny computed by DENDRO is further compared with underlining truth, which measured by three statistics - adjust Rand index (global accuracy statistics), capture rate (subclone specific statistic) and purity (subclone specific statistic). 
+Figure 2 illustrate the overall pipeline. The analysis starts with a designed tree with an interested clade (purple clade in the example). Based on the tree model, number of cells, sequencing depth and sequencing error rate, we simulate single cell mutation profile. scRNA data was sampled from a reference scRNA-seq dataset given expression level in bulk. A phylogeny computed by DENDRO is further compared with underlining truth, which measured by three statistics - adjusted Rand index (global accuracy statistics), capture rate (subclone specific statistic) and purity (subclone specific statistic). 
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/Pkg_FIG-02.jpg")
 ```
@@ -79,7 +79,7 @@ Numbers on branches illustrate index of mutation probability variable `lprob`, a
 
 We measure DENDROplan results by four statistics, explained here:
 
-* Adjust Rand index: Adjusted Rand index is a measure of the similarity between two data clusterings after adjusted for the chance grouping of elements. For details, see [here](https://en.wikipedia.org/wiki/Rand_index)
+* Adjusted Rand index: Adjusted Rand index is a measure of the similarity between two data clusterings after adjusted for the chance grouping of elements. For details, see [here](https://en.wikipedia.org/wiki/Rand_index)
 
 * Capture rate: Capture rate is a measure of “false negative rate” of a specific *star* clade. Out of all the cells from the specific clade, how many of them is detected by the algorithm.
 

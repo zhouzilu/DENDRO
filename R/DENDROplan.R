@@ -21,7 +21,7 @@ DENDRO.simulation=function(kprob=NULL,lprob=NULL,filt=0,m=100,n=1000,
   res = matrix(NA,ncol=4,nrow=3)
 
   rownames(res)=c('CI_low','Mean','CI_up')
-  colnames(res)=c('AdjustRandIndex','Capture rate','Purity',
+  colnames(res)=c('AdjustedRandIndex','Capture rate','Purity',
                    'Observation probability')
 
   res[1,c(1,2)]=pmax(apply(evals,1,function(x){
