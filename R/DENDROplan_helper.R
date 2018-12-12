@@ -75,8 +75,8 @@ DENDROplan.simulation.helper2=function(kprob=NULL,lprob=NULL,
         Ncgb=X2.samp[i,]
       }
       else{
-        Ncga=X1.samp[i,]
-        Ncgb=X2.samp[i,]
+        Ncga=X2.samp[i,]
+        Ncgb=X1.samp[i,]
       }
       N[i,]=Ncga+Ncgb
       if(cladegene[i]==1){
