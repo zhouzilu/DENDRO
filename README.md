@@ -7,7 +7,7 @@ In addition, before conducting a single cell RNA-seq experiment on a tumor sampl
 
 ## Manuscript
 
-([no link yet](https://doi.org/10.1093/bioinformatics/bty057))
+([link](https://www.biorxiv.org/content/early/2018/10/30/457622))
 
 
 ## Questions & Problems
@@ -22,6 +22,13 @@ Install all packages in the latest version of [R](https://www.r-project.org/).
 ```r
 devtools::install_github("zhouzilu/DENDRO")
 ```
+If you observe error with Biobase try the following and then try reinstall.
+```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("Biobase", version = "3.8")
+```
+
 
 ## Pipeline overview
 
@@ -57,7 +64,7 @@ This DENDRO package includes two analysis tools: (1) **DENDRO**, a phylogenetic 
 
 Please cite DENDRO.
 
-* **DENDRO**: [no link yet](https://doi.org/10.1093/bioinformatics/bty057)
+* **DENDRO**: [link](https://www.biorxiv.org/content/early/2018/10/30/457622)
 <br>
   Genetic Heterogeneity Profiling by Single Cell RNA Sequencing ([GitHub](https://github.com/zhouzilu/DENDRO))
 
