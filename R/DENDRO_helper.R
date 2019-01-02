@@ -41,7 +41,7 @@ FilterCellMutation = function(X,N,Z,Info=NULL,label=NULL,cut.off.VAF=0.05,
   label=label[filted_cell]
   }
 
-  return(list(X=X,N=N,Z=Z,Info=Info,label=label))
+  return(list(X=X,N=N,Z=Z,Info=Info,label=label,filted_cell=filted_cell))
 }
 
 
