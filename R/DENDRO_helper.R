@@ -114,7 +114,7 @@ DENDRO.recalculate = function(X,N,Info,DENDRO_label,
       ncol(Z_cluster),' subclones \n')
 
   return(list(X=X_cluster,N=N_cluster,
-              Z=Z_cluster,Info=Info,
+              Z=Z_cluster,Info=Info_cluster,
               lg=Z_cluster_lg))
 }
 
