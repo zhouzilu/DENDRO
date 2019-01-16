@@ -1,3 +1,4 @@
 # exportPattern("^[[:alpha:]]+")
 export("DENDRO.simulation","FilterCellMutation","DENDRO.recalculate",
-       "DENDRO.icd","DENDRO.dist","DENDRO.cluster","DENDRO.tree")
+       "DENDRO.icd","DENDRO.dist","DENDRO.cluster","DENDRO.tree",
+       "DENDRO.dist.v1")

@@ -186,6 +186,68 @@ SNV.dist <- function(N,X,Pg,epi= 0.001,show.progress) {
   return(mat)
 }
 
+# Calculate the SNV distance given N (Total read count),
+# X (Variants read counts), Pg (Mutation rate), and epi (Sequencing error rate)
+# based on new formula. Here Pg is a Dx3 matrix where D is # of mutations
+SNV.dist.v1 <- function(N,X,Pg,epi= 0.001,show.progress) {
+  n <- ncol(N)
+  d <- nrow(N)
+  mu=rowMeans(X/N,na.rm=T)
+  var=apply(X/N,1,function(x){var(x,na.rm=TRUE)})
+  alpha <- ((1 - mu) / var - 1 / mu) * mu ^ 2
+  beta <- alpha * (1 / mu - 1)
+  not_sel = alpha<=0 | beta<=0 | is.na(alpha) | is.na(beta) |
+    is.infinite(alpha) | is.infinite(beta)
+  if(show.progress){
+    cat(sum(not_sel),' of ',length(not_sel),' mutations are filtered out due
+      to unestimatable Beta-binomial parameter.\n')
+  }
+
+  N=N[!not_sel,]
+  X=X[!not_sel,]
+  Pg=Pg[!not_sel]
+  alpha=alpha[!not_sel]
+  beta=beta[!not_sel]
+  # precomputing logP(X|N,Z=0) & logP(X|N,Z=1)
+  lPz0=sapply(seq(1,n),function(i){dbinom(X[,i],size=N[,i],prob=epi,log=TRUE)})
+  # lPz1=sapply(seq(1,n),function(i){linte_binomial(X[,i],N[,i])})
+  # lPz1=log(1/(N+1))
+  # dbb is faster
+  lPz1=sapply(seq(1,n),function(i){dbb(X[,i],N=N[,i],u=alpha,v=beta,log=TRUE)})
+  lPz2=sapply(seq(1,n),function(i){dbinom(N[,i]-X[,i],size=N[,i],prob=epi,log=TRUE)})
+
+  lPg0=log(Pg[,1])
+  lPg1=log(Pg[,2])
+  lPg2=log(Pg[,3])
+  lupiall1=logSum_1(lPz0+lPg0,lPz1+lPg1)
+  lupiall2=logSum_1(lPz1+lPg1,lPz2+lPg2)
+
+  mat <- matrix(0, ncol = n, nrow = n)
+  for(i in 1:nrow(mat)) {
+    # cat(i,' ')
+    mat[i,] <- SNV_distance_kernel_precompu.v1(lPz0,lPz1,lPg,l1Pg,lupiall,i)
+    if(show.progress){
+      svMisc::progress(round(100*(i-1)/n))
+      if (i == n) cat("Done!\n")
+      }
+  }
+  colnames(mat) = colnames(X)
+  return(mat)
+}
+
+# Precompute factors used in divergence evalutation
+SNV_distance_kernel_precompu.v1=function(lPz0,lPz1,lPg,l1Pg,lupiall,i){
+  ldowni=logSum_1(logSum_1(lPz0[,i]+lPz0+lPg0,
+                  lPz1[,i]+lPz1+lPg1),lPz2[,i]+lPz2+lPg2)
+
+  lupi=logSum_1(logSum_1(lupiall1[,i]+lupiall1,lupiall2[,i]+lupiall2),-(lPz1[,i]+lPz1+2*lPg1))
+
+  lupi=logSum_1(lupi,ldowni)
+
+  d=colSums(lupi-ldowni,na.rm=T)
+  # d[d<0]=0
+  return(d)
+}
 
 # Precompute factors used in divergence evalutation
 SNV_distance_kernel_precompu=function(lPz0,lPz1,lPg,l1Pg,lupiall,i){

@@ -5,6 +5,15 @@ DENDRO.dist = function(X,N,Z,epi=0.01,show.progress=TRUE){
   return(dist)
 }
 
+DENDRO.dist.v1 = function(X,N,Z,epi=0.01,show.progress=TRUE){
+  Ng=rowSums(!is.na(Z))
+  Pg = cbind(rowSums(Z==0,na.rm=T)/Ng,rowSums(Z==1,na.rm=T)/Ng,rowSums(Z==2,na.rm=T)/Ng)
+  dist = as.dist(SNV.dist.v1(N,X,Pg,epi,show.progress))
+  dist = dist-min(dist)+1
+  return(dist)
+}
+
+
 DENDRO.cluster = function(dist,method='ward.D',plot=TRUE,label=NULL){
   clust=hclust(dist,method=method)
   if(plot){
