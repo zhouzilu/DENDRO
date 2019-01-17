@@ -44,6 +44,53 @@ FilterCellMutation = function(X,N,Z,Info=NULL,label=NULL,cut.off.VAF=0.05,
   return(list(X=X,N=N,Z=Z,Info=Info,label=label,filted_cell=filted_cell))
 }
 
+# Filter out low expressed gene and high dropout cells based on read counts
+FilterCellMutation.v1 = function(X,N,Z,Info=NULL,label=NULL,cut.off.VAF=0.05,
+                              cut.off.sd=5,plot=TRUE){
+  # filt = c(max(1,nrow(Z)*cut.off.VAF),(nrow(Z)*(1-cut.off.VAF)))
+  VAF=rowSums(X,na.rm=T)/rowSums(N,na.rm=T)
+  filted_call = VAF>cut.off.VAF & VAF<(1-cut.off.VAF)
+  cat('Variants with VAF greater than', cut.off.VAF,' and less than ',
+      (1-cut.off.VAF),': ',sum(filted_call),' out of ',nrow(Z),'\n')
+  if(plot){
+    par(mfrow=c(1,2))
+    hist(rowSums(Z,na.rm=T), 20,
+         main='Cell distribution \n for each mutation call',
+         xlab ='Number of cells')
+    abline(v=filt[1],col='red')
+    abline(v=filt[2],col='red')
+  }
+  N = N[filted_call,]
+  X = X[filted_call,]
+  Z = Z[filted_call,]
+  if(!is.null(Info)){
+    Info = Info[filted_call,]
+  }
+
+  filt = c(pmax(0,round(mean(colSums(N))-cut.off.sd*sd(colSums(N)))),
+           round(mean(colSums(N))+cut.off.sd*sd(colSums(N))))
+
+  filted_cell = colSums(N)>filt[1] & colSums(N)<filt[2]
+  cat('Number of cells with more than', filt[1],' and less ',filt[2],
+      ' total read counts: ',sum(filted_cell),' out of ',ncol(Z),'\n')
+  if(plot){
+    hist(colSums(N),20,main='Mutation distribution \n for each cell',
+         xlab ='Number of mutations')
+    abline(v=filt[1],col='red')
+    abline(v=filt[2],col='red')
+    par(mfrow=c(1,1))
+  }
+  N = N[,filted_cell]
+  X = X[,filted_cell]
+  Z = Z[,filted_cell]
+
+  if(!is.null(label)){
+  label=label[filted_cell]
+  }
+
+  return(list(X=X,N=N,Z=Z,Info=Info,label=label,filted_cell=filted_cell))
+}
+
 
 # Combine read counts within each cluster and recalculate SNA based on likelihood
 # model
