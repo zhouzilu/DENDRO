@@ -7,7 +7,9 @@ DENDRO.dist = function(X,N,Z,epi=0.01,show.progress=TRUE){
 
 DENDRO.dist.v1 = function(X,N,Z,epi=0.01,show.progress=TRUE){
   Ng=rowSums(!is.na(Z))
-  Pg = cbind((rowSums(Z==0,na.rm=T)+1)/Ng,(rowSums(Z==1,na.rm=T)+1)/Ng,(rowSums(Z==2,na.rm=T)+1)/Ng)
+  #Pg = cbind((rowSums(Z==0,na.rm=T)+1)/Ng,(rowSums(Z==1,na.rm=T)+1)/Ng,(rowSums(Z==2,na.rm=T)+1)/Ng)
+  #Pg = Pg/rowSums(Pg)
+  Pg = cbind((rowSums(N-X,na.rm=T)/rowSums(N,na.rm=T))^2,2*rowSums(X,na.rm=T)*rowSums(N-X,na.rm=T)/(rowSums(N,na.rm=T)^2),(rowSums(X,na.rm=T)/rowSums(N,na.rm=T))^2)
   dist = as.dist(SNV.dist.v1(N,X,Pg,epi,show.progress))
   dist = dist-min(dist)+1
   return(dist)

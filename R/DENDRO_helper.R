@@ -48,6 +48,18 @@ FilterCellMutation = function(X,N,Z,Info=NULL,label=NULL,cut.off.VAF=0.05,
 FilterCellMutation.v1 = function(X,N,Z,Info=NULL,label=NULL,cut.off.VAF=0.05,
                               cut.off.sd=5,plot=TRUE){
   # filt = c(max(1,nrow(Z)*cut.off.VAF),(nrow(Z)*(1-cut.off.VAF)))
+  ZnotNA=rowSums(!is.na(Z))/ncol(Z)
+  filted_call = ZnotNA>cut.off.VAF
+  cat('Variants with NA percentage less than', cut.off.VAF,': ',sum(filted_call),
+    ' out of ',nrow(Z),'\n')
+  N = N[filted_call,]
+  X = X[filted_call,]
+  Z = Z[filted_call,]
+  if(!is.null(Info)){
+    Info = Info[filted_call,]
+  }
+
+
   VAF=rowSums(X,na.rm=T)/rowSums(N,na.rm=T)
   filted_call = VAF>cut.off.VAF & VAF<(1-cut.off.VAF)
   cat('Variants with VAF greater than', cut.off.VAF,' and less than ',
@@ -266,13 +278,12 @@ SNV.dist.v1 <- function(N,X,Pg,epi= 0.001,show.progress) {
   lPg0=log(Pg[,1])
   lPg1=log(Pg[,2])
   lPg2=log(Pg[,3])
-  lupiall1=logSum_1(lPz0+lPg0,lPz1+lPg1)
-  lupiall2=logSum_1(lPz1+lPg1,lPz2+lPg2)
+  lupiall=logSum_1(logSum_1(lPz0+lPg0,lPz1+lPg1),lPz2+lPg2)
 
   mat <- matrix(0, ncol = n, nrow = n)
   for(i in 1:nrow(mat)) {
     # cat(i,' ')
-    mat[i,] <- SNV_distance_kernel_precompu.v1(lPz0,lPz1,lPz2,lPg0,lPg1,lPg2,lupiall1,lupiall2,i)
+    mat[i,] <- SNV_distance_kernel_precompu.v2(lPz0,lPz1,lPz2,lPg0,lPg1,lPg2,lupiall,i)
     if(show.progress){
       svMisc::progress(round(100*(i-1)/n))
       if (i == n) cat("Done!\n")
@@ -280,6 +291,32 @@ SNV.dist.v1 <- function(N,X,Pg,epi= 0.001,show.progress) {
   }
   colnames(mat) = colnames(X)
   return(mat)
+  # lupiall1=logSum_1(lPz0+lPg0,lPz1+lPg1)
+  # lupiall2=logSum_1(lPz1+lPg1,lPz2+lPg2)
+
+  # mat <- matrix(0, ncol = n, nrow = n)
+  # for(i in 1:nrow(mat)) {
+  #   # cat(i,' ')
+  #   mat[i,] <- SNV_distance_kernel_precompu.v1(lPz0,lPz1,lPz2,lPg0,lPg1,lPg2,lupiall1,lupiall2,i)
+  #   if(show.progress){
+  #     svMisc::progress(round(100*(i-1)/n))
+  #     if (i == n) cat("Done!\n")
+  #     }
+  # }
+  # colnames(mat) = colnames(X)
+  # return(mat)
+}
+
+# Precompute factors used in divergence evalutation
+SNV_distance_kernel_precompu.v2=function(lPz0,lPz1,lPz2,lPg0,lPg1,lPg2,lupiall,i){
+  ldowni=logSum_1(logSum_1(lPz0[,i]+lPz0+lPg0,
+                  lPz1[,i]+lPz1+lPg1),lPz2[,i]+lPz2+lPg2)
+
+  lupi=logSum_1(lupiall[,i]+lupiall,ldowni)
+
+  d=colSums(lupi-ldowni,na.rm=T)
+  # d[d<0]=0
+  return(d)
 }
 
 # Precompute factors used in divergence evalutation
