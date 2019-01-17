@@ -252,7 +252,7 @@ SNV.dist.v1 <- function(N,X,Pg,epi= 0.001,show.progress) {
 
   N=N[!not_sel,]
   X=X[!not_sel,]
-  Pg=Pg[!not_sel]
+  Pg=Pg[!not_sel,]
   alpha=alpha[!not_sel]
   beta=beta[!not_sel]
   # precomputing logP(X|N,Z=0) & logP(X|N,Z=1)
