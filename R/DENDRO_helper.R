@@ -272,7 +272,7 @@ SNV.dist.v1 <- function(N,X,Pg,epi= 0.001,show.progress) {
   mat <- matrix(0, ncol = n, nrow = n)
   for(i in 1:nrow(mat)) {
     # cat(i,' ')
-    mat[i,] <- SNV_distance_kernel_precompu.v1(lPz0,lPz1,lPg,l1Pg,lupiall,i)
+    mat[i,] <- SNV_distance_kernel_precompu.v1(lPz0,lPz1,lPz2,lPg0,lPg1,lPg2,lupiall1,lupiall2,i)
     if(show.progress){
       svMisc::progress(round(100*(i-1)/n))
       if (i == n) cat("Done!\n")
@@ -283,7 +283,7 @@ SNV.dist.v1 <- function(N,X,Pg,epi= 0.001,show.progress) {
 }
 
 # Precompute factors used in divergence evalutation
-SNV_distance_kernel_precompu.v1=function(lPz0,lPz1,lPg,l1Pg,lupiall,i){
+SNV_distance_kernel_precompu.v1=function(lPz0,lPz1,lPz2,lPg0,lPg1,lPg2,lupiall1,lupiall2,i){
   ldowni=logSum_1(logSum_1(lPz0[,i]+lPz0+lPg0,
                   lPz1[,i]+lPz1+lPg1),lPz2[,i]+lPz2+lPg2)
 
