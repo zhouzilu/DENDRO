@@ -207,8 +207,8 @@ SNV.dist <- function(N,X,Pg,epi= 0.001,show.progress) {
   d <- nrow(N)
   mu=rowMeans(X/N,na.rm=T)
   var=apply(X/N,1,function(x){var(x,na.rm=TRUE)})
-  alpha <- ((1 - mu) / var - 1 / mu) * mu ^ 2
-  beta <- alpha * (1 / mu - 1)
+  alpha <- ((1 - mu) * mu / var - 1 ) * mu
+  beta <-  ((1 - mu) * mu / var - 1 ) * (1 - mu) 
   not_sel = alpha<=0 | beta<=0 | is.na(alpha) | is.na(beta) |
     is.infinite(alpha) | is.infinite(beta)
   if(show.progress){
@@ -253,8 +253,8 @@ SNV.dist.v1 <- function(N,X,Pg,epi= 0.001,show.progress) {
   d <- nrow(N)
   mu=rowMeans(X/N,na.rm=T)
   var=apply(X/N,1,function(x){var(x,na.rm=TRUE)})
-  alpha <- ((1 - mu) / var - 1 / mu) * mu ^ 2
-  beta <- alpha * (1 / mu - 1)
+  alpha <- ((1 - mu) * mu / var - 1 ) * mu
+  beta <-  ((1 - mu) * mu / var - 1 ) * (1 - mu) 
   not_sel = alpha<=0 | beta<=0 | is.na(alpha) | is.na(beta) |
     is.infinite(alpha) | is.infinite(beta)
   if(show.progress){
