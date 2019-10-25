@@ -7,7 +7,7 @@ In addition, before conducting a single cell RNA-seq experiment on a tumor sampl
 
 ## Manuscript
 
-([link](https://www.biorxiv.org/content/early/2018/10/30/457622))
+([link](https://www.biorxiv.org/content/10.1101/457622v2.full))
 
 
 ## Questions & Problems
@@ -64,7 +64,7 @@ This DENDRO package includes two analysis tools: (1) **DENDRO**, a phylogenetic 
 
 Please cite DENDRO.
 
-* **DENDRO**: [link](https://www.biorxiv.org/content/early/2018/10/30/457622)
+* **DENDRO**: [link](https://www.biorxiv.org/content/10.1101/457622v2.full)
 <br>
   Genetic Heterogeneity Profiling by Single Cell RNA Sequencing ([GitHub](https://github.com/zhouzilu/DENDRO))
 

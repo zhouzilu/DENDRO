@@ -7,7 +7,7 @@ DENDRO specific cluster method on genetic divergence matrix
 Cluster cells based on the genetic divergence matrix using hierachical cluster methods. 
 }
 \usage{
-DENDRO.cluster(dist, method = "ward.D", plot = TRUE, label = NULL)
+DENDRO.cluster(dist, method = "ward.D", plot = TRUE, label = NULL, ...)
 }
 \arguments{
   \item{dist}{
@@ -21,6 +21,9 @@ DENDRO.cluster(dist, method = "ward.D", plot = TRUE, label = NULL)
 }
   \item{label}{
   An integer 1D vector that decide the label color. Default NULL, where no color label. 
+}  
+  \item{...}{
+  Other arugments can be inherited from plot.phylo in "ape". For example type='fan' for circle cluster plot.
 }
 }
 \value{

@@ -1,7 +1,7 @@
 ---
 title: "DENDROplan Vignette"
 author: "Zilu Zhou"
-date: "10/23/2018"#"`r Sys.Date()`"
+date: "10/25/2019"#"`r Sys.Date()`"
 abstract: >
  Before conducting a single cell RNA-seq experiment on a tumor sample, it is important to project how subclone detection power depends on the number of cells sequenced and the coverage per cell. To facilitate experiment design, we developed a tool, **DENDROplan** (Figure 2), that  predicts the expected clustering accuracy by DENDRO given sequencing parameters.  Given a tree structure and a target accuracy, **DENDROplan** computes the necessary read depth and number of cells needed based on the spike-in procedure described above. For more detail, please check our [biorixv preprint](www.rstudio.com)
 output:

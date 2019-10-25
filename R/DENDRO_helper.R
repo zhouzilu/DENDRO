@@ -3,8 +3,8 @@ FilterCellMutation = function(X,N,Z,Info=NULL,label=NULL,cut.off.VAF=0.05,
                               cut.off.sd=5,plot=TRUE){
   filt = c(max(1,nrow(Z)*cut.off.VAF),(nrow(Z)*(1-cut.off.VAF)))
   filted_call = rowSums(Z,na.rm=T)>filt[1] & rowSums(Z,na.rm=T)<filt[2]
-  cat('Number of calls in more than', filt[1],' cells and less than ',filt[2],
-      ' cells: ',sum(filted_call),' out of ',nrow(Z),'\n')
+  cat('Filtering variants: ',sum(filted_call), ' out of ',nrow(Z),' variants retained; filter creatiera:',
+      filt[1],'< # of cells detected <',filt[2],'\n')
   if(plot){
     par(mfrow=c(1,2))
     hist(rowSums(Z,na.rm=T), 20,
@@ -24,8 +24,8 @@ FilterCellMutation = function(X,N,Z,Info=NULL,label=NULL,cut.off.VAF=0.05,
            round(mean(colSums(N))+cut.off.sd*sd(colSums(N))))
 
   filted_cell = colSums(N)>filt[1] & colSums(N)<filt[2]
-  cat('Number of cells with more than', filt[1],' and less ',filt[2],
-      ' total read counts: ',sum(filted_cell),' out of ',ncol(Z),'\n')
+  cat('Filtering cells:',sum(filted_cell),' out of ',ncol(Z), 'cells retained; filter creatiera:', 
+      filt[1],'< total # of variants detected <',filt[2],'\n')
   if(plot){
     hist(colSums(N),20,main='Mutation distribution \n for each cell',
          xlab ='Number of mutations')
