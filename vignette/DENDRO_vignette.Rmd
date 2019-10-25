@@ -1,7 +1,7 @@
 ---
 title: "DENDRO Vignette"
 author: "Zilu Zhou"
-date: "10/23/2018"#"`r Sys.Date()`"
+date: "10/25/2019"#"`r Sys.Date()`"
 abstract: >
  *D*na based *E*volutio*N*ary tree pre*D*iction by sc*R*na-seq techn*O*logy (DENDRO) is a statistical framework that takes scRNA-seq data for a tumor and accurately reconstructs its phylogeny, assigning each single cell from the scRNA-seq data to a subclone. Our approach allows us to (1) cluster cells based on genomic profiles while accounting for transcriptional bursting, technical dropout and sequencing error, as benchmarked on in silico mixture and a spike-in analysis, (2) make robust mutation profile inference in subclonal resolution, and (3) perform DNA-RNA joint analysis with same set of cells and examine the relationship between transcriptomic variation and mutation profile. For more detail, please check our [biorixv preprint, no link yet](www.rstudio.com)
 output: 
@@ -90,10 +90,10 @@ demo_qc$dist = DENDRO.dist(demo_qc$X,demo_qc$N,demo_qc$Z,show.progress=FALSE)
 
 ### 3.3.2 Clustering with the genetic divergence matrix
 
-Let's apply hierachical clustering and plot out the clustering result colored by known true label: `demo_qc$clade`. Check `DENDRO.cluster` for more details.
+Let's apply hierachical clustering and plot out the clustering result colored by known true label: `demo_qc$clade`. To allow user to customize your tree `DENDRO.cluster` inherent arguments from `plot.phylo`, Check `DENDRO.cluster` for more details.
 
 ```{r, message=FALSE, warning=FALSE, fig.width=14}
-demo_qc$cluster = DENDRO.cluster(demo_qc$dist,label=demo_qc$label)
+demo_qc$cluster = DENDRO.cluster(demo_qc$dist,label=demo_qc$label,type='fan')
 ```
 
 Let's decided the optimal number of clusters using an intra-cluster divergence (icd) measurements.
@@ -109,7 +109,7 @@ We decide the optimal number of cluster by identifying kink or "elbow point" in 
 Let's re-plot our data with DENDRO label
 
 ```{r, message=FALSE, warning=FALSE, fig.width=14}
-demo_qc$cluster = DENDRO.cluster(demo_qc$dist,label=demo_qc$DENDRO_label)
+demo_qc$cluster = DENDRO.cluster(demo_qc$dist,label=demo_qc$DENDRO_label,type='fan')
 ```
 
 ### 3.3.3 Re-estimate mutation profile within each cluster and QC

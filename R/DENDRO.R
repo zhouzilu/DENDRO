@@ -16,17 +16,20 @@ DENDRO.dist.v1 = function(X,N,Z,epi=0.01,show.progress=TRUE){
 }
 
 
-DENDRO.cluster = function(dist,method='ward.D',plot=TRUE,label=NULL){
+DENDRO.cluster = function(dist,method='ward.D',plot=TRUE,label=NULL,type="phylogram",...){
   clust=hclust(dist,method=method)
   if(plot){
     dend=as.dendrogram(clust)
     if(!is.null(label)){
-      labels_colors(dend) =
+      tip.color =
         colorspace::rainbow_hcl(
           length(unique(label))
-          )[label][order.dendrogram(dend)]
+          )[label]
+      dend%>%as.phylo()%>%plot(type=type,main='DENDRO Result',tip.color=tip.color,...)
+    }else{
+      dend%>%as.phylo()%>%plot(type=type,main='DENDRO Result',...)
     }
-    plot(dend,main='DENDRO Result')
+    
     if(!is.null(label)){
       cols <- colorspace::rainbow_hcl(length(unique(label)))
       legend("topright", legend = 1:length(unique(label)),
