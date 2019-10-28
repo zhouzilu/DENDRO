@@ -65,7 +65,7 @@ There are total 22958 potential mutation loci across 133 cells. As a result, whe
 ## 3.3  Tree simulation
 ### 3.3.1 Tree type and parameters
 
-The trees that DENDROplan is able to simulate show at Figure 3. The corresponding `k` and subtype value are also included. 
+The trees that DENDROplan is able to simulate show at Figure 3. The corresponding `k` and `subtype` value are also included. 
 
 ```{r, out.width = "1000px", fig.align = "center", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/master/figure/Pkg_FIG-03.jpg")
@@ -73,7 +73,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/maste
 
   **Figure 3**. Example tree structure DENDRO can simulate with corresponding parameters.
 
-Numbers on branches illustrate index of mutation probability variable `lprob`, and numbers at node illustrate index of cell proportion variable `kprob`. The interested clade is labeled by a *star*. Capture rate and purity are measured on that specific *star* cluster.
+Numbers on branches illustrate index of mutation probability variable `lprob`, and numbers at node illustrate index of cell proportion variable `kprob`. The interested clade is labeled by a *star*. Capture rate and purity are measured on that specific *star* cluster. `k` is the parameter indicating number of subclones. When `k=4`, the subclones can for two typeof trees, differetiated by the `subtype` parameter.
 
 ### 3.3.2 Accuracy measurements
 
