@@ -73,7 +73,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/zhouzilu/DENDRO/maste
 
   **Figure 3**. Example tree structure DENDRO can simulate with corresponding parameters.
 
-Numbers on branches illustrate index of mutation probability variable `lprob`, and numbers at node illustrate index of cell proportion variable `kprob`. The interested clade is labeled by a *star*. Capture rate and purity are measured on that specific *star* cluster. `k` is the parameter indicating number of subclones. When `k=4`, the subclones can for two typeof trees, differetiated by the `subtype` parameter.
+Numbers on branches illustrate index of mutation probability variable `lprob`, and numbers at node illustrate index of cell proportion variable `kprob`. The interested clade is labeled by a *star*. Capture rate and purity are measured on that specific *star* cluster. `k` is the parameter indicating number of subclones. When `k=4`, the subclones can form two types of trees, differetiated by the `subtype` parameter.
 
 ### 3.3.2 Accuracy measurements
 
