@@ -1,7 +1,7 @@
 # Filter out low expressed gene and high dropout cells based on read counts
 FilterCellMutation = function(X,N,Z,Info=NULL,label=NULL,cut.off.VAF=0.05,
                               cut.off.sd=5,plot=TRUE){
-  filt = c(max(1,nrow(Z)*cut.off.VAF),(nrow(Z)*(1-cut.off.VAF)))
+  filt = c(max(1,ncol(Z)*cut.off.VAF),(ncol(Z)*(1-cut.off.VAF)))
   filted_call = rowSums(Z,na.rm=T)>filt[1] & rowSums(Z,na.rm=T)<filt[2]
   cat('Filtering variants: ',sum(filted_call), ' out of ',nrow(Z),' variants retained; filter creatiera:',
       filt[1],'< # of cells detected <',filt[2],'\n')
