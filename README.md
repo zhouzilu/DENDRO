@@ -44,7 +44,7 @@ This DENDRO package includes two analysis tools: (1) **DENDRO**, a phylogenetic 
 
 ### Running DENDRO
 
-  **DENDRO R notebook** with step-by-step demonstration and rich display is available [***here***](http://rawgit.com/zhouzilu/DENDRO/master/vignette/DENDRO_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDRO_vignette.Rmd).
+  **DENDRO R notebook** with step-by-step demonstration and rich display is available [***here***](http://raw.githack.com/zhouzilu/DENDRO/master/vignette/DENDRO_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDRO_vignette.Rmd).
 
 
 ### DENDROplan pipeline
@@ -57,7 +57,7 @@ This DENDRO package includes two analysis tools: (1) **DENDRO**, a phylogenetic 
 
 ### Running DENDROplan
 
-  **DENDROplan R notebook** with step-by-step demonstration and rich display is available [***here***](http://rawgit.com/zhouzilu/DENDRO/master/vignette/DENDROplan_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDROplan_vignette.Rmd).
+  **DENDROplan R notebook** with step-by-step demonstration and rich display is available [***here***](http://raw.githack.com/zhouzilu/DENDRO/master/vignette/DENDROplan_vignette.html). Corresponding **Rmd script** is available [***here***](https://github.com/zhouzilu/DENDRO/blob/master/vignette/DENDROplan_vignette.Rmd).
 
 
 ## Citation
