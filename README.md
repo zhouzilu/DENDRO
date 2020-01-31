@@ -76,6 +76,6 @@ Zhou, Z., Xu, B., Minn, A. et al. DENDRO: genetic heterogeneity profiling and su
   <br>
   Genomics and Computational Biology Graduate Group, University of Pennsylvania
 
-* [Nancy R. Zhang](https://statistics.wharton.upenn.edu/profile/nzh/) (nzh at wharton dot upenn dot edu)
+* [Nancy R. Zhang](https://statistics.wharton.upenn.edu/profile/nzh/) 
   <br>
   Department of Statistics, University of Pennsylvania
