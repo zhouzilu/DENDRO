@@ -62,9 +62,11 @@ This DENDRO package includes two analysis tools: (1) **DENDRO**, a phylogenetic 
 
 ## Citation
 
-Please cite DENDRO.
+DENDRO paper is now published on Genome Biology.
 
-* **DENDRO**: [link](https://www.biorxiv.org/content/10.1101/457622v2.full)
+Zhou, Z., Xu, B., Minn, A. et al. DENDRO: genetic heterogeneity profiling and subclone detection by single-cell RNA sequencing. Genome Biol 21, 10 (2020). https://doi.org/10.1186/s13059-019-1922-x
+
+* **DENDRO**: [link](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1922-x)
 <br>
   Genetic Heterogeneity Profiling by Single Cell RNA Sequencing ([GitHub](https://github.com/zhouzilu/DENDRO))
 
