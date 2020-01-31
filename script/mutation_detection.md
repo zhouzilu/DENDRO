@@ -25,11 +25,7 @@ Example script is attached [here](https://github.com/zhouzilu/DENDRO/blob/master
 
 ## Citation
 
-Please cite DENDRO.
-
-* **DENDRO**: [no link yet](https://doi.org/10.1093/bioinformatics/bty057)
-<br>
-  Genetic Heterogeneity Profiling by Single Cell RNA Sequencing ([GitHub](https://github.com/zhouzilu/DENDRO))
+Zhou, Z., Xu, B., Minn, A. et al. DENDRO: genetic heterogeneity profiling and subclone detection by single-cell RNA sequencing. Genome Biol 21, 10 (2020). https://doi.org/10.1186/s13059-019-1922-x
 
 ## Developers & Maintainers
 
@@ -37,6 +33,6 @@ Please cite DENDRO.
   <br>
   Genomics and Computational Biology Graduate Group, University of Pennsylvania
 
-* [Nancy R. Zhang](https://statistics.wharton.upenn.edu/profile/nzh/) (nzh at wharton dot upenn dot edu)
+* [Nancy R. Zhang](https://statistics.wharton.upenn.edu/profile/nzh/)
   <br>
   Department of Statistics, University of Pennsylvania
