@@ -1,7 +1,7 @@
 Package: DENDRO
 Type: Package
 Title: Dna based EvolutioNary tree preDiction by scRna-seq technOlogy
-Version: 0.2.1
+Version: 0.2.2
 Author: Zilu Zhou, Nancy R. Zhang
 Maintainer: Zilu Zhou <zhouzilu@pennmedicine.upenn.edu>
 Description: We propose DENDRO, a statistical framework takes scRNA-seq data 

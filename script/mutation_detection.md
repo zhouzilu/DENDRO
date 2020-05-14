@@ -21,7 +21,7 @@ Initial SNA detection is indeed one of the most important steps in DENDRO pipeli
   
 Due to great number of cells, traditional way of calling variants sample by sample is extremely slow. Luckily, GATK has ERC GVCF mode, which utilize a map-reduce like approach. Please check the details [here](https://gatkforums.broadinstitute.org/gatk/discussion/3893/calling-variants-on-cohorts-of-samples-using-the-haplotypecaller-in-gvcf-mode). Our script is built upon ERC GVCF mode togehter with the [variant detection best approach on RNAseq data](https://gatkforums.broadinstitute.org/gatk/discussion/3892/the-gatk-best-practices-for-variant-calling-on-rnaseq-in-full-detail).
 
-Example script is attached [here](https://github.com/zhouzilu/DENDRO/blob/master/script/mutation_detection_mapreduce.sh).
+Example script is attached [here](https://github.com/zhouzilu/DENDRO/blob/master/script/mutation_detection_mapreduce.sh). We also provided an [R script](https://github.com/zhouzilu/DENDRO/blob/master/script/vcf_to_DENDROinput.R) to convert vcf files to DENDRO input.
 
 ## Citation
 
